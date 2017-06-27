@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>IXL Content Front-End Job Test --- Yuhang(Alex) Zhou</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="shortcut icon" type="image/png" href="https://www.ixl.com/ixl-favicon.png"/>
+	<link rel="stylesheet" href="styles.css">
+</head>
+
+<body ng-app="myApp" class="container-fluid">
+
+	<div ng-controller="Configuration">
+	
+	<h1>Configuration</h1>
+
+	<form name="keyform" novalidate ng-submit="keyform.$valid" class="form-inline">
+		<label>Keywords</label><br>
+		<input type="text" name="keyinput" ng-model="keywords" required ng-minlength="3" ng-maxlength="8" ng-pattern="/^[A-Z]*$/" class="form-control">
+		<button ng-click="update()" ng-disabled="keyform.$invalid" class="btn btn-default">Update</button>
+		<span ng-show="keyform.keyinput.$error.minlength || keyform.keyinput.$error.maxlength || keyform.keyinput.$error.pattern" class="text-danger">Accepted keywords should be a single uppercase word between 3 to 8 characters long.</span>
+	</form><br>
+
+	<table id="keytable" class="table table-bordered" style="width:auto;">
+	</table>
+
+	<h1>Encoding</h1>
+
+	<div class="text-primary" ng-show="!showencode">
+	  <strong>Info!</strong> Encoding table will be enabled after you correctly set keywords in Configuration.
+	</div><br>
+
+	<table class="table table-bordered" style="width:auto;" ng-show="showencode">
+	  <tr>
+	    <td ng-repeat="x in alphabet"><button type="button" class="btn btn-default" ng-click="encode(x)">{{x}}</button></td>
+	  </tr>
+	  <tr>
+	    <td ng-repeat="x in alphabet">{{characterTransform(x,offset)}}</td>
+	  </tr>
+	</table>
+
+	<form novalidate class="form-inline">
+		<label>Source Text</label><br>
+		<input type="text" ng-model="sourcetext" class="form-control" id="sourcetext" ng-readonly="true">
+		<button ng-click="clear()" class="btn btn-default">Clear</button>
+	</form><br>
+
+	<form novalidate class="form-inline">
+		<label>Cipher Text</label><br>
+		<input type="text" ng-model="ciphertext" class="form-control" id="ciphertext" ng-readonly="true"><br>
+	</form>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+
+</html>
